@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-latest-image
+spec:
+  validationFailureAction: Enforce   # enforce = block deployments
+  rules:
+    - name: block-latest-tag
+      match:
+        resources:
+          kinds:
+            - Pod
+            - Deployment
+            - StatefulSet
+            - DaemonSet
+      validate:
+        message: "Using the :latest image tag is not allowed. Please use a specific version."
+        pattern:
+          spec:
+            containers:
+              - image: "!*:latest"         # !* means "anything except this pattern"
+            

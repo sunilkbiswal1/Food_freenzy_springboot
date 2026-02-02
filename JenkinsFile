@@ -195,7 +195,7 @@ pipeline {
                             exit 1
                         fi
 
-                        echo "Updating app-deployment.yml in the maniffest file ........."
+                        echo "Updating app-deployment.yml in the manifest file ........."
                         sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" Deployment/app-deployment.yml
                         cat Deployment/app-deployment.yml
 

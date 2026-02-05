@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: food-frenzy
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: app=sunilkumar45/foodfrenzyapp
+    argocd-image-updater.argoproj.io/app.update-strategy: latest
+    argocd-image-updater.argoproj.io/app.helm.image-name: app.image.repository
+    argocd-image-updater.argoproj.io/app.helm.image-tag: app.image.tag
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/sunilkbiswal1/Food_frenzy_springboot.git
+    targetRevision: main
+    path: food-frenzy-helm
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: food-frenzy
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

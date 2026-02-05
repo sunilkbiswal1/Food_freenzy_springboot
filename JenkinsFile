@@ -174,47 +174,49 @@ pipeline {
             }
         }
 
-        stage('Update GitHub Status') {
-            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                steps {
-                    echo "================= UPDATE GITHUB REPO STATUS ================="
-                    sh '''
-                        cd /tmp
-                        rm -rf ${GIT_REPONAME}
+        // stage('Update GitHub Status') {
+        //     withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+        //         steps {
+        //             echo "================= UPDATE GITHUB REPO STATUS ================="
+        //             sh '''
+        //                 cd /tmp
+        //                 rm -rf ${GIT_REPONAME}
 
-                        echo "Clonnig Repository ........"
-                        git clone https://@{GITHUB_TOKEN}@github.com/${GIT_USERNAME}/${GIT_REPONAME}.git
-                        cd ${GIT_REPONAME}
+        //                 echo "Clonnig Repository ........"
+        //                 git clone https://@{GITHUB_TOKEN}@github.com/${GIT_USERNAME}/${GIT_REPONAME}.git
+        //                 cd ${GIT_REPONAME}
 
-                        git config user.email "biswalpranati99@gmail.com"
-                        git config user.name "sunilkbiswal1"
+        //                 git config user.email "biswalpranati99@gmail.com"
+        //                 git config user.name "sunilkbiswal1"
 
-                        echo "Verify deployment file exist or not !"
-                        if [! -f Deployment/app-deployment.yml]; then
-                            echo "Error: app-deployment.yml not found!"
-                            exit 1
-                        fi
+        //                 echo "Verify deployment file exist or not !"
+        //                 if [! -f food-freenzy-helm/values.yaml]; then
+        //                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" food-freenzy-helm/values.yaml
+        //                 else
+        //                     echo "Error: food-freenzy-helm/values.yaml not found!"
+        //                     exit 1
+        //                 fi
 
-                        echo "Updating app-deployment.yml in the manifest file ........."
-                        sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" Deployment/app-deployment.yml
-                        cat Deployment/app-deployment.yml
+        //                 echo "Updating app-deployment.yml in the manifest file ........."
+        //                 sed -i "s/app.image.tag:.*/app.image.tag:/${BUILD_NUMBER}/g" food-freenzy-helm/values.yaml
+        //                 cat food-freenzy-helm/values.yaml
 
-                        echo "Add , Commit & Push .........."
-                        git add Deployment/app-deployment.yml
-                        git commit -m "Update image tag to ${BUILD_NUMBER} from Jenkins"
-                        git push origin main
-                    '''
-                }
-            }
-            post {
-                success {
-                    echo "Succesfully pushed to the Github"
-                }
-                failure {
-                    echo "Failed to push to the Github!"
-                }
-            }
-        }
+        //                 echo "Add , Commit & Push .........."
+        //                 git add food-freenzy-helm/values.yaml
+        //                 git commit -m "Update image tag to ${BUILD_NUMBER} from Jenkins"
+        //                 git push origin main
+        //             '''
+        //         }
+        //     }
+        //     post {
+        //         success {
+        //             echo "Succesfully pushed to the Github"
+        //         }
+        //         failure {
+        //             echo "Failed to push to the Github!"
+        //         }
+        //     }
+        // }
     }
 }
 

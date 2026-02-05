@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "food-frenzy-helm.mysql.name" . }}
+  labels:
+    {{- include "food-frenzy-helm.mysql.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ .Values.mysql.port }}
+    targetPort: 3306
+    protocol: TCP
+  selector:
+    {{- include "food-frenzy-heelm.mysql.selectorLabels" . | nindent 4 }}

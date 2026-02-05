@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "food-freenzy-helm.fullname" . }}
+  labels:
+    {{- include "food-freenzy-helm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.app.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "food-frenzy-helm.app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "food-frenzy-helm.app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "food-frenzy-helm.fullname" . }}
+          image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
+          imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.app.port }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://{{ include "food-freenzy-helm.fullname" . }}:3306/{{ .Values.mysql.database }}
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "food-freenzy-helm.fullname" . }}
+                  key: MYSQL_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "food-freenzy-helm.fullname" . }}
+                  key: MYSQL_PASSWORD

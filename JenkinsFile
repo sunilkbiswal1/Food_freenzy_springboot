@@ -2,7 +2,7 @@ pipeline {
     agent any 
 
     environment {
-        SONAR_URL = "http://192.168.0.108"
+        SONAR_URL = "http://192.168.0.110"
         DOCKER_IMAGE = "foodfrenzyapp"
         DOCKER_REGISTRY = "sunilkumar45"
         DOCKER_TAG = "${BUILD_NUMBER}"

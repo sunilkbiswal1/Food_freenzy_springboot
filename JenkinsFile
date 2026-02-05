@@ -24,10 +24,12 @@ pipeline {
         stage('Verify Tools') {
             steps {
                 echo "=================== TOOLS USED ===================="
-                mvn --version
-                git --version
-                java --version
-                docker --verssion
+                sh '''
+                    mvn --version
+                    git --version
+                    java --version
+                    docker --verssion
+                '''
             }
         }
 

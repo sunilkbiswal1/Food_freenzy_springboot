@@ -116,16 +116,17 @@ pipeline {
             }
         }
 
-        stage('Verify JAR') {
-            steps {
-                echo "================ VERIFYING JAR FILE ================="
-                sh '''
-                    pwd
-                    ls -l
-                    ls -lh target
-                '''
-            }
+       stage('Verify JAR Exists') {
+         steps {
+            sh '''
+                echo "Workspace contents:"
+                pwd
+                ls -l
+                echo "Checking target directory:"
+                ls -lh target || exit 1
+            '''
         }
+    }
 
         stage('Docker Build ') {
             steps {

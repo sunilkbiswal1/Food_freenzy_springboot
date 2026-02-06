@@ -153,6 +153,7 @@ pipeline {
                 echo "==================== RUNNING TRIVY IMGE SCANNING VULNERBILITY ===================="
                 sh '''
                     trivy image \
+                    --timeout 10m \
                     --severity HIGH,CRITICAL \
                     --exit-code 1\
                     --no-progress \
@@ -164,7 +165,7 @@ pipeline {
                     echo "No Vulnerability Found.... Succesful!"
                 }
                 failure {
-                    echo "Vulnerability Found ........ Piooeline failed!"
+                    echo "Vulnerability Found ........ Pipeline failed!"
                 }
             }
         }

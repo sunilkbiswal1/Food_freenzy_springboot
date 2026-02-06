@@ -28,7 +28,7 @@ pipeline {
                     mvn --version
                     git --version
                     java --version
-                    docker --verssion
+                    docker --version
                 '''
             }
         }

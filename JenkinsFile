@@ -95,7 +95,7 @@ pipeline {
                 echo "=========================== CODE ANALYSIS THROUGH SONARQUBE =========================="
 
                 withSonarQubeEnv('sonarqube-server') {
-                    withCredentails([string(credentailsId: 'sonrqube', variable: 'SOAR_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'sonrqube', variable: 'SONAR_TOKEN')]) {
                         sh '''
                             mvn sonar:sonar \
                             -Dsonar.host.url=${SONAR_URL} \

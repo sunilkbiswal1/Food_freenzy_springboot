@@ -77,12 +77,15 @@ pipeline {
                     archiveArtifacts artifacts: 'target/*.jar',
                         fingerprint: true,
                         allowEmptyArchive: false
-                    
-                    BUILD_STATUS="SUCCESS"
+                    script {
+                        BUILD_STATUS="SUCCESS"
+                    }
                 }
                 failure {
                     echo "Build Failed .............. Stopping Pipeline"
-                    BUILD_STATUS="FAILURE"
+                    script {
+                        BUILD_STATUS="FAILURE"
+                    }
                 }
             }
         }
@@ -157,7 +160,7 @@ pipeline {
         stage ('Docker Image Push') {
             steps {
                 echo "==================== PUSHING DOCKER IMAGE TO REGISTRY ===================="
-                docker.withRegistry('https://index.docker.io/v1/', '${DOCKER_CREDENTIALS}') {
+                docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
                 sh '''
                     docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}
                     docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:latest
@@ -167,11 +170,15 @@ pipeline {
             post {
                 success {
                     echo "Docker Imaged Pushed to Docker Hub!"
-                    env.IMG = "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    script {
+                        env.IMG = "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    }
                 }
                 failure {
                     echo "Docker Image Push Failed ........ Stopping Pipeline!"
-                    env.IMG="DOCKER IMAGE NOT PUSHED"
+                    script {
+                        env.IMG="DOCKER IMAGE NOT PUSHED"
+                    }
                 }
             }
         }

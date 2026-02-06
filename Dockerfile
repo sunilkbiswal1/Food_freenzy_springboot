@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jre-alpine
 
-ARG JAR_FILE=target/.*jar
+ARG JAR_FILE=target/*.jar
 
 WORKDIR /app
 

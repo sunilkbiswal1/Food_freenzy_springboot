@@ -11,4 +11,4 @@ spec:
     targetPort: 3306
     protocol: TCP
   selector:
-    {{- include "food-freenzy-heelm.mysql.selectorLabels" . | nindent 4 }}
+    {{- include "food-freenzy-helm.mysql.selectorLabels" . | nindent 4 }}

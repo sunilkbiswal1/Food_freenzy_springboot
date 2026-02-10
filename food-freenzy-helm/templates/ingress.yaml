@@ -14,5 +14,5 @@ spec:
               service:
                 name: {{ include "food-freenzy-helm.fullname" . }}
                 port:
-                  number: {{ .Values.app.service.port }}
+                  number: {{ .Values.app.port }}
 {{- end }}

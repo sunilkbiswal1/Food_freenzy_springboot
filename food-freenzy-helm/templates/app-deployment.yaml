@@ -8,14 +8,14 @@ spec:
   replicas: {{ .Values.app.replicaCount }}
   selector:
     matchLabels:
-      {{- include "food-frenzy-helm.app.selectorLabels" . | nindent 6 }}
+      {{- include "food-freenzy-helm.app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "food-frenzy-helm.app.selectorLabels" . | nindent 8 }}
+        {{- include "food-freenzy-helm.app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ include "food-frenzy-helm.fullname" . }}
+        - name: {{ include "food-freenzy-helm.fullname" . }}
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           imagePullPolicy: {{ .Values.app.image.pullPolicy }}
           ports:

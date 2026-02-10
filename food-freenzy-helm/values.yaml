@@ -51,3 +51,10 @@ ingress:
   enabled: true
   host: foodfrenzy.local
   path: /
+
+# =====================
+# Service Account
+# =====================
+serviceAccount:
+  create: true
+  name: ""

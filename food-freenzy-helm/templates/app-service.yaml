@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "food-frenzy-helm.fullname" . }}
+  name: {{ include "food-freenzy-helm.fullname" . }}
   labels:
-    {{- include "food-frenzy-helm.app.labels" . | nindent 4 }}
+    {{- include "food-freenzy-helm.app.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -11,4 +11,4 @@ spec:
     targetPort: {{ .Values.app.port }}
     protocol: TCP
   selector:
-    {{- include "food-frenzy-helm.app.selectorLabels" . | nindent 4 }}
+    {{- include "food-freenzy-helm.app.selectorLabels" . | nindent 4 }}

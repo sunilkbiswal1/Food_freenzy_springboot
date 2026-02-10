@@ -1,45 +1,52 @@
-#============================
+# ============================
 # SPRINGBOOT APP DEPLOYMENT
-#============================
+# ============================
 app:
   name: foodfrenzy
   replicas: 2
+
   image:
     repository: sunilkumar45/foodfrenzyapp
-    tag: v1.0.0
+    tag: "v1.0.0"
     pullPolicy: Always
+
   port: 8083
 
-  #===============================
-  # MYSQL DEPLOYMENT
-  #===============================
+# ============================
+# MYSQL DEPLOYMENT
+# ============================
 mysql:
-  image: mysql
+  enabled: true
+
+  image:
+    repository: mysql
     tag: "8.0"
     pullPolicy: IfNotPresent
+
   service:
     port: 3306
+
   database: food_frenzy_db
-  
-#===============================
-# SECRET 
-#===============================   
+
+# ============================
+# SECRETS
+# ============================
 secret:
   mysql:
-    rootPassword: root123
-    user: appuser
-    password: apppass
+    rootPassword: "root123"
+    user: "appuser"
+    password: "apppass"
 
-# =====================
-# Service
-# =====================
+# ============================
+# SERVICE
+# ============================
 service:
   type: ClusterIP
   port: 80
 
-# =====================
-# Ingress
-# =====================
+# ============================
+# INGRESS
+# ============================
 ingress:
   enabled: true
   host: foodfrenzy.local

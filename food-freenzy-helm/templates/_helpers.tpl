@@ -60,3 +60,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name of the MySQL service
+*/}}
+{{- define "food-freenzy-helm.mysql.name" -}}
+{{ printf "%s-mysql" (include "food-freenzy-helm.fullname" .) }}
+{{- end }}
+

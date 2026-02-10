@@ -58,3 +58,7 @@ ingress:
 serviceAccount:
   create: true
   name: ""
+
+httpRoute:
+  enabled: false
+

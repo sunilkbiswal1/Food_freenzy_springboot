@@ -1,14 +1,16 @@
+{{- if .Values.mysql.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "food-freenzy-helm.mysql.name" . }}
   labels:
-    {{- include "food-freenzy-helm.mysql.labels" . | nindent 4 }}
+    {{- include "food-freenzy-helm.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
-  - port: {{ .Values.mysql.port }}
-    targetPort: 3306
-    protocol: TCP
+    - port: {{ .Values.mysql.service.port | default 3306 }}
+      targetPort: 3306
+      protocol: TCP
   selector:
-    {{- include "food-freenzy-helm.mysql.selectorLabels" . | nindent 4 }}
+    {{- include "food-freenzy-helm.selectorLabels" . | nindent 4 }}
+{{- end }}

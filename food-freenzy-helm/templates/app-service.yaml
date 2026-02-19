@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "food-freenzy-helm.fullname" . }}
   labels:
-    {{- include "food-freenzy-helm.app.labels" . | nindent 4 }}
+    {{- include "food-freenzy-helm.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -11,4 +11,4 @@ spec:
     targetPort: {{ .Values.app.port }}
     protocol: TCP
   selector:
-    {{- include "food-freenzy-helm.app.selectorLabels" . | nindent 4 }}
+    {{- include "food-freenzy-helm.selectorLabels" . | nindent 4 }}
